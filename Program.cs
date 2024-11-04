@@ -85,10 +85,7 @@ namespace cs_sort
             list.InsertionSort();
             sw.Stop();
             if (!Comparer.Compare(_etalon, list))
-            {
-                Console.WriteLine(string.Join(", ", _etalon) + " | " + string.Join(", ", list));
                 throw new Exception("Invalid implementaion of insertion sort");
-            }
             return sw;
         }
 
