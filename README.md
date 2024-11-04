@@ -2,8 +2,8 @@
 
 ### O(n^2) sorts
 
-* [Bubble](n2/BubbleSort)
-* [Insertion](n2/InsertionSort)
+* [Bubble](n2/BubbleSort.cs)
+* [Insertion](n2/InsertionSort.cs)
 
 | n       | Build in | Bubble  | Insertion |
 | ------- | -------- | ------- | --------- |
