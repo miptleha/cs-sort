@@ -46,24 +46,13 @@ namespace cs_sort
             }
         }
 
-        static TimeSpan Mean(ICollection<TimeSpan> source)
+        static TimeSpan Mean(List<TimeSpan> source)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            long mean = 0L;
-            long remainder = 0L;
-            int n = source.Count;
-            foreach (var item in source)
-            {
-                long ticks = item.Ticks;
-                mean += ticks / n;
-                remainder += ticks % n;
-                mean += remainder / n;
-                remainder %= n;
-            }
-
-            return TimeSpan.FromTicks(mean);
+            source.Sort();
+            return source[source.Count / 2];
         }
 
         static string Time(TimeSpan ts)
@@ -72,8 +61,10 @@ namespace cs_sort
                 return $"{(int)ts.TotalSeconds} s";
             else if ((int)ts.TotalMilliseconds > 0)
                 return $"{(int)ts.TotalMilliseconds} ms";
-            else
+            else if ((int)(ts.TotalNanoseconds / 1000) > 0)
                 return $"{(int)(ts.TotalNanoseconds / 1000)} mks";
+            else
+                return $"{(int)ts.TotalNanoseconds} ns";
         }
 
         static List<int> _etalon;
