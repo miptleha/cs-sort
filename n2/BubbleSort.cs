@@ -5,6 +5,9 @@ namespace cs_sort.n2
 {
     public static class BubbleSortClass
     {
+        /// <summary>
+        /// Sequential swapping of adjacent elements
+        /// </summary>
         public static void BubbleSort<T>(this IList<T> list) where T : IComparable<T>
         {
             for (int i = list.Count - 1; i >= 0; i--)

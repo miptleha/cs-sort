@@ -24,7 +24,7 @@ namespace cs_sort
         static void RunN2Sorts()
         {
             const int MAX_POWER_N2 = 6;
-            const int TRY = 30;
+            const int TRY = 10;
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             for (int i = 0; i < MAX_POWER_N2; i++)
             {
@@ -32,6 +32,7 @@ namespace cs_sort
                 var tsBuildIn = new List<TimeSpan>();
                 var tsBubble = new List<TimeSpan>();
                 var tsInsertion = new List<TimeSpan>();
+                var tsSelection = new List<TimeSpan>();
                 for (int k = 0; k < (i < MAX_POWER_N2 - 1 ? TRY : 1); k++)
                 {
                     var src = new List<int>();
@@ -41,15 +42,16 @@ namespace cs_sort
                     tsBuildIn.Add(SortBuildIn(src).Elapsed);
                     tsBubble.Add(SortBubble(src).Elapsed);
                     tsInsertion.Add(SortInsertion(src).Elapsed);
+                    tsSelection.Add(SortSelection(src).Elapsed);
                 }
-                Console.WriteLine($"{total}, BuildIn: {Time(Mean(tsBuildIn))}, Bubble: {Time(Mean(tsBubble))}, Insertion: {Time(Mean(tsInsertion))}");
+                Console.WriteLine($"{total}, BuildIn: {Time(Mean(tsBuildIn))}, Bubble: {Time(Mean(tsBubble))}, Insertion: {Time(Mean(tsInsertion))}, Selection: {Time(Mean(tsSelection))}");
             }
         }
 
         static TimeSpan Mean(List<TimeSpan> source)
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
+            if (source == null || source.Count == 0)
+                return default;
 
             source.Sort();
             return source[source.Count / 2];
@@ -68,6 +70,17 @@ namespace cs_sort
         }
 
         static List<int> _etalon;
+
+        private static Stopwatch SortSelection(List<int> src)
+        {
+            var list = Copy(src);
+            Stopwatch sw = Stopwatch.StartNew();
+            list.SelectionSort();
+            sw.Stop();
+            if (!Comparer.Compare(_etalon, list))
+                throw new Exception("Invalid implementaion of selection sort");
+            return sw;
+        }
 
         private static Stopwatch SortInsertion(List<int> src)
         {

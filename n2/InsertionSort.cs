@@ -5,6 +5,9 @@ namespace cs_sort.n2
 {
     public static class InsertionSortClass
     {
+        /// <summary>
+        /// Adding a card to the sorted deck
+        /// </summary>
         public static void InsertionSort<T>(this IList<T> list) where T : IComparable<T>
         {
             for (int i = 1; i < list.Count; i++)
