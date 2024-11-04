@@ -1,4 +1,4 @@
-#﻿# Implementation and measurements of various types of sorting
+## Implementation and measurements of various types of sorting
 
 ### O(n^2) sorts
 
