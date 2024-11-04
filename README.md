@@ -1,9 +1,9 @@
-﻿# Implementation and measurements of various types of sorting
+#﻿# Implementation and measurements of various types of sorting
 
-## O(n^2) sorts
+### O(n^2) sorts
 
-[Bubble](n2/BubbleSort)
-[Insertion](n2/InsertionSort)
+* [Bubble](n2/BubbleSort)
+* [Insertion](n2/InsertionSort)
 
 | n       | Build in | Bubble  | Insertion |
 | ------- | -------- | ------- | --------- |
