@@ -2,7 +2,7 @@
 
 Runs different `sorting algorithms` for random integer arrays and lists of different lengths in several passes.  
 Changing the `.NET` version does not affect the results.  
-`cs-sort.sln` for the `Core` and `cs-sort-old.sln` for the `Classic` `.NET Framework`.  
+Solution `cs-sort.sln` is for the `Core` and `cs-sort-old.sln` is for the `Classic` `.NET Framework`.  
 Before starting `cs-sort-old.sln` delete `obj` folder.  
 
 Below are the results for `Arrays` in `Debug mode` for `.NET 8`.  
