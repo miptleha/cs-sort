@@ -37,7 +37,7 @@ These algorithms are *not recommended* for use (significantly slower than built-
 | 1 000 000  | 67 ms  | 430 ms |
 | 10 000 000 | 780 ms | 4.9 s  |
 
-*new algorithms coming soon*
+*New algorithms coming soon*
 
 [1]: https://learn.microsoft.com/en-us/dotnet/api/system.array.sort?view=net-8.0#system-array-sort
 [2]: n2/BubbleSort.cs
