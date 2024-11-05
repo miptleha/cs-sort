@@ -19,7 +19,7 @@ Tenfold measurements were made with the calculation of the median.
 [3]: n2/InsertionSort.cs
 [4]: n2/SelectionSort.cs
 
-### O(n) sorts
+### O(nlogn) sorts
 
 *Coming soon*
 
