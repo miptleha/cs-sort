@@ -1,8 +1,9 @@
 ## Implementation and measurements of various types of sorting
 
-The application runs different `sorting algorithms` for random integer arrays and lists of different lengths in several passes.  
+Runs different `sorting algorithms` for random integer arrays and lists of different lengths in several passes.  
 Changing the `.NET` version does not affect the results.  
-There is a solution for the `Core` and the `Classic` `.NET Framework` (before starting `cs-sort-old.sln` delete `obj` folder).  
+`cs-sort.sln` for the `Core` and `cs-sort-old.sln` for the `Classic` `.NET Framework`.  
+Before starting `cs-sort-old.sln` delete `obj` folder.  
 
 Below are the results for `Arrays` in `Debug mode` for `.NET 8`.  
 `Lists` work slower with a small number of elements.  
@@ -38,7 +39,7 @@ These algorithms are *not recommended* for use (significantly slower than built-
 
 *new algorithms coming soon*
 
-[1]: https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.sort?view=net-8.0
+[1]: https://learn.microsoft.com/en-us/dotnet/api/system.array.sort?view=net-8.0#system-array-sort
 [2]: n2/BubbleSort.cs
 [3]: n2/InsertionSort.cs
 [4]: n2/SelectionSort.cs
