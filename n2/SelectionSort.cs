@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cs_sort.n2
+namespace cs_sort
 {
     public static class SelectionSortClass
     {
@@ -16,14 +16,17 @@ namespace cs_sort.n2
             for (int i = 0; i < list.Count; i++)
             {
                 var min = i;
+                var vMin = list[min];
                 for (int j = i + 1; j < list.Count; j++)
                 {
-                    if (list[min].CompareTo(list[j]) > 0)
+                    if (vMin.CompareTo(list[j]) > 0)
+                    {
                         min = j;
+                        vMin = list[j];
+                    }
                 }
-                var v = list[min];
                 list[min] = list[i];
-                list[i] = v;
+                list[i] = vMin;
             }
         }
     }

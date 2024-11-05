@@ -1,9 +1,8 @@
-﻿using cs_sort.n2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
+using System.Threading;
 
 namespace cs_sort
 {
@@ -14,6 +13,9 @@ namespace cs_sort
             try
             {
                 RunN2Sorts();
+                Cooldown();
+                Console.WriteLine();
+                RunNLogNSorts();
             }
             catch (Exception ex)
             {
@@ -23,28 +25,67 @@ namespace cs_sort
 
         static void RunN2Sorts()
         {
-            const int MAX_POWER_N2 = 6;
-            const int TRY = 10;
-            var rnd = new Random(Guid.NewGuid().GetHashCode());
-            for (int i = 0; i < MAX_POWER_N2; i++)
+            Console.WriteLine("Run O(n*n) sorts:");
+            for (int a = 0; a < 2; a++)
             {
-                var total = (int)Math.Pow(10, i);
-                var tsBuildIn = new List<TimeSpan>();
-                var tsBubble = new List<TimeSpan>();
-                var tsInsertion = new List<TimeSpan>();
-                var tsSelection = new List<TimeSpan>();
-                for (int k = 0; k < (i < MAX_POWER_N2 - 1 ? TRY : 1); k++)
+                if (a == 1)
+                    Cooldown();
+                Console.WriteLine(a == 0 ? "Array" : "List");
+                const int MAX_POWER = 6;
+                const int MAX_TRY = 5;
+                var rnd = new Random(Guid.NewGuid().GetHashCode());
+                for (int i = 0; i < MAX_POWER; i++)
                 {
-                    var src = new List<int>();
-                    for (int j = 0; j < total; j++)
-                        src.Add(rnd.Next(total));
+                    var total = (int)Math.Pow(10, i);
+                    if (i == MAX_POWER - 1)
+                        total = total / 4;
+                    var tsBuildIn = new List<TimeSpan>();
+                    var tsBubble = new List<TimeSpan>();
+                    var tsInsertion = new List<TimeSpan>();
+                    var tsSelection = new List<TimeSpan>();
+                    for (int k = 0; k < (i < MAX_POWER - 1 ? MAX_TRY : 1); k++)
+                    {
+                        var src = new int[total];
+                        for (int j = 0; j < total; j++)
+                            src[j] = rnd.Next(total);
 
-                    tsBuildIn.Add(SortBuildIn(src).Elapsed);
-                    tsBubble.Add(SortBubble(src).Elapsed);
-                    tsInsertion.Add(SortInsertion(src).Elapsed);
-                    tsSelection.Add(SortSelection(src).Elapsed);
+                        tsBuildIn.Add(SortBuildIn(src, a == 0).Elapsed);
+                        tsBubble.Add(SortBubble(src, a == 0).Elapsed);
+                        tsInsertion.Add(SortInsertion(src, a == 0).Elapsed);
+                        tsSelection.Add(SortSelection(src, a == 0).Elapsed);
+                    }
+                    Console.WriteLine($"{total.ToString("N0")}, BuildIn: {Time(Mean(tsBuildIn))}, Bubble: {Time(Mean(tsBubble))}, Insertion: {Time(Mean(tsInsertion))}, Selection: {Time(Mean(tsSelection))}");
                 }
-                Console.WriteLine($"{total}, BuildIn: {Time(Mean(tsBuildIn))}, Bubble: {Time(Mean(tsBubble))}, Insertion: {Time(Mean(tsInsertion))}, Selection: {Time(Mean(tsSelection))}");
+            }
+        }
+
+        static void RunNLogNSorts()
+        {
+            Console.WriteLine("Run O(n*log(n)) sorts:");
+            for (int a = 0; a < 2; a++)
+            {
+                if (a == 1)
+                    Cooldown();
+                Console.WriteLine(a == 0 ? "Array" : "List");
+                const int MAX_POWER = 8;
+                const int MAX_TRY = 5;
+                var rnd = new Random(Guid.NewGuid().GetHashCode());
+                for (int i = 0; i < MAX_POWER; i++)
+                {
+                    var total = (int)Math.Pow(10, i);
+                    var tsBuildIn = new List<TimeSpan>();
+                    var tsMerge = new List<TimeSpan>();
+                    for (int k = 0; k < (i < MAX_POWER - 1 ? MAX_TRY : 1); k++)
+                    {
+                        var src = new List<int>();
+                        for (int j = 0; j < total; j++)
+                            src.Add(rnd.Next(total));
+
+                        tsBuildIn.Add(SortBuildIn(src, a == 0).Elapsed);
+                        tsMerge.Add(SortMerge(src, a == 0).Elapsed);
+                    }
+                    Console.WriteLine($"{total.ToString("N0")}, BuildIn: {Time(Mean(tsBuildIn))}, Merge: {Time(Mean(tsMerge))}");
+                }
             }
         }
 
@@ -60,20 +101,38 @@ namespace cs_sort
         static string Time(TimeSpan ts)
         {
             if ((int)ts.TotalSeconds > 0)
-                return $"{(int)ts.TotalSeconds} s";
+                return $"{Round(ts.TotalSeconds)} s";
             else if ((int)ts.TotalMilliseconds > 0)
-                return $"{(int)ts.TotalMilliseconds} ms";
-            else if ((int)(ts.TotalNanoseconds / 1000) > 0)
-                return $"{(int)(ts.TotalNanoseconds / 1000)} mks";
-            else
-                return $"{(int)ts.TotalNanoseconds} ns";
+                return $"{Round(ts.TotalMilliseconds)} ms";
+            return $"{Round(ts.TotalMilliseconds * 1000)} mks";
         }
 
-        static List<int> _etalon;
-
-        private static Stopwatch SortSelection(List<int> src)
+        static string Round(double n)
         {
-            var list = Copy(src);
+            int len = ((int)n).ToString().Length;
+            double r = Math.Pow(10, len - 2);
+            double d = n / r;
+            double d1 = Math.Round(d, 0) * r;
+            decimal res = (decimal)d1;
+            return res.ToString(CultureInfo.InvariantCulture);
+        }
+
+        static IList<int> _etalon;
+
+        private static Stopwatch SortMerge(IList<int> src, bool isArray)
+        {
+            var list = Copy(src, isArray);
+            Stopwatch sw = Stopwatch.StartNew();
+            var list1 = list.MergeSort();
+            sw.Stop();
+            if (!Comparer.Compare(_etalon, list1))
+                throw new Exception("Invalid implementaion of merge sort");
+            return sw;
+        }
+
+        private static Stopwatch SortSelection(IList<int> src, bool isArray)
+        {
+            var list = Copy(src, isArray);
             Stopwatch sw = Stopwatch.StartNew();
             list.SelectionSort();
             sw.Stop();
@@ -82,9 +141,9 @@ namespace cs_sort
             return sw;
         }
 
-        private static Stopwatch SortInsertion(List<int> src)
+        private static Stopwatch SortInsertion(IList<int> src, bool isArray)
         {
-            var list = Copy(src);
+            var list = Copy(src, isArray);
             Stopwatch sw = Stopwatch.StartNew();
             list.InsertionSort();
             sw.Stop();
@@ -93,9 +152,9 @@ namespace cs_sort
             return sw;
         }
 
-        private static Stopwatch SortBubble(List<int> src)
+        private static Stopwatch SortBubble(IList<int> src, bool isArray)
         {
-            var list = Copy(src);
+            var list = Copy(src, isArray);
             Stopwatch sw = Stopwatch.StartNew();
             list.BubbleSort();
             sw.Stop();
@@ -104,21 +163,40 @@ namespace cs_sort
             return sw;
         }
 
-        private static Stopwatch SortBuildIn(List<int> src)
+        private static Stopwatch SortBuildIn(IList<int> src, bool isArray)
         {
-            var list = Copy(src);
+            var list = Copy(src, isArray);
             Stopwatch sw = Stopwatch.StartNew();
-            list.Sort();
+            if (list is List<int>)
+                ((List<int>)list).Sort();
+            else
+                Array.Sort((int[])list);
             sw.Stop();
             _etalon = list;
             return sw;
         }
 
-        private static List<int> Copy(List<int> src) 
+        private static IList<int> Copy(IList<int> src, bool isArray) 
         {
-            var list = new List<int>();
-            list.AddRange(src);
-            return list;
+            if (isArray)
+            {
+                var list = new int[src.Count];
+                for (int i = 0; i < src.Count; i++)
+                    list[i] = src[i];
+                return list;
+            }
+            else
+            {
+                var list = new List<int>();
+                list.AddRange(src);
+                return list;
+            }
+        }
+
+        static void Cooldown()
+        {
+            Console.WriteLine("Cooldown 10s");
+            Thread.Sleep(10000);
         }
     }
 }

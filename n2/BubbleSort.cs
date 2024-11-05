@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace cs_sort.n2
+namespace cs_sort
 {
     public static class BubbleSortClass
     {
@@ -15,10 +15,10 @@ namespace cs_sort.n2
                 bool sorted = true;
                 for (int j = 0; j < i; j++)
                 {
-                    if (list[j + 1].CompareTo(list[j]) < 0)
+                    var v = list[j];
+                    if (list[j + 1].CompareTo(v) < 0)
                     {
                         sorted = false;
-                        var v = list[j];
                         list[j] = list[j + 1];
                         list[j + 1] = v;
                     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace cs_sort.n2
+namespace cs_sort
 {
     public static class InsertionSortClass
     {
