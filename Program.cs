@@ -12,8 +12,8 @@ namespace cs_sort
         {
             try
             {
-                //RunN2Sorts();
-                //Cooldown();
+                RunN2Sorts();
+                Cooldown();
                 Console.WriteLine();
                 RunNLogNSorts();
             }
