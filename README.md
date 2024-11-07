@@ -13,7 +13,7 @@ More detailed information can be obtained by running the application.
 ### O(n^2) sorts
 
 | n       | [Build-in][1] | [Bubble][2] | [Insertion][3] | [Selection][4] |
-| ------- | -------- | ------ | --------- | --------- |
+| ------: | -------: | -----: | --------: | --------: |
 | 1       | 0 μs     | 0 μs   | 0 μs      | 0.1 μs    |
 | 10      | 0.3 μs   | 1.1 μs | 0.7 μs    | 1.2 μs    |
 | 100     | 2.4 μs   | 95 μs  | 36 μs     | 52 μs     |
@@ -26,7 +26,7 @@ These algorithms are *not recommended* for use (significantly slower than built-
 ### O(nlogn) sorts
 
 | n          | [Build-in][1] | [Merge][5] | [Quick][6] |
-| ---------- | ------ | ------ | ------ |
+| ---------: | -----: | -----: | -----: |
 | 1          | 0 μs   | 0.2 μs | 0.1 μs |
 | 10         | 0.3 μs | 6.8 μs | 3.8 μs |
 | 100        | 2.2 μs | 48 μs  | 41 μs  |
