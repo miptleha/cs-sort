@@ -4,18 +4,18 @@ using System.Linq;
 
 namespace cs_sort
 {
-    public static class MergeSortClass
+    public static class MergeSort
     {
         /// <summary>
         /// Split, recursively sort, then merge. Doesn't change the original list.
         /// </summary>
-        public static T[] MergeSort<T>(this IList<T> list) where T : IComparable<T>
+        public static T[] SortMerge<T>(this IList<T> list) where T : IComparable<T>
         {
             if (list.Count <= 1)
                 return list.ToArray();
 
-            var left = MergeSort(list.Take(list.Count / 2).ToArray());
-            var right = MergeSort(list.Skip(list.Count / 2).ToArray());
+            var left = SortMerge(list.Take(list.Count / 2).ToArray());
+            var right = SortMerge(list.Skip(list.Count / 2).ToArray());
             
             var res = new T[list.Count];
             int l = 0, r = 0, k = 0;

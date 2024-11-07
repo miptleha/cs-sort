@@ -8,7 +8,7 @@ namespace cs_sort
         /// <summary>
         /// Looking for the minimum element in the unsorted part
         /// </summary>
-        public static void SelectionSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void SortSelection<T>(this IList<T> list) where T : IComparable<T>
         {
             for (int i = 0; i < list.Count; i++)
             {

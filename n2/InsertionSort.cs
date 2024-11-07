@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace cs_sort
 {
-    public static class InsertionSortClass
+    public static class InsertionSort
     {
         /// <summary>
         /// Adding a card to the sorted deck
         /// </summary>
-        public static void InsertionSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void SortInsertion<T>(this IList<T> list) where T : IComparable<T>
         {
             for (int i = 1; i < list.Count; i++)
             {

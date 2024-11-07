@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace cs_sort
 {
-    public static class BubbleSortClass
+    public static class BubbleSort
     {
         /// <summary>
         /// Sequential swapping of adjacent elements
         /// </summary>
-        public static void BubbleSort<T>(this IList<T> list) where T : IComparable<T>
+        public static void SortBubble<T>(this IList<T> list) where T : IComparable<T>
         {
             for (int i = list.Count - 1; i >= 0; i--)
             {
