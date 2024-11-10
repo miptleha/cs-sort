@@ -25,10 +25,10 @@ namespace cs_sort
         static void HeapAdd<T>(IList<T> heap, T key) where T : IComparable<T>
         {
             heap.Add(key);
-            ShiftUp(heap, heap.Count);
+            SiftUp(heap, heap.Count);
         }
 
-        static void ShiftUp<T>(IList<T> heap, int index) where T : IComparable<T>
+        static void SiftUp<T>(IList<T> heap, int index) where T : IComparable<T>
         {
             if (index == 1)
                 return;
@@ -39,7 +39,7 @@ namespace cs_sort
                 var tmp = heap[p - 1];
                 heap[p - 1] = heap[index - 1];
                 heap[index - 1] = tmp;
-                ShiftUp(heap, p);
+                SiftUp(heap, p);
             }
         }
 
@@ -48,11 +48,11 @@ namespace cs_sort
             var v = heap[0];
             heap[0] = heap[heap.Count - 1];
             heap.RemoveAt(heap.Count - 1);
-            ShiftDown(heap, 1);
+            SiftDown(heap, 1);
             return v;
         }
 
-        static void ShiftDown<T>(IList<T> heap, int index) where T : IComparable<T>
+        static void SiftDown<T>(IList<T> heap, int index) where T : IComparable<T>
         {
             var l = index * 2;
             var r = index * 2 + 1;
@@ -68,7 +68,7 @@ namespace cs_sort
                 var tmp = heap[m - 1];
                 heap[m - 1] = heap[index - 1];
                 heap[index - 1] = tmp;
-                ShiftDown(heap, m);
+                SiftDown(heap, m);
             }
         }
     }
