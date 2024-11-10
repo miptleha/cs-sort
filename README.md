@@ -25,7 +25,7 @@ These algorithms are *not recommended* for use (significantly slower than built-
 
 ### O(nlogn) sorts
 
-| n          | [Build-in][1] | [Merge][5] | [Quick][6] | [Heap](7) |
+| n          | [Build-in][1] | [Merge][5] | [Quick][6] | [Heap][7] |
 | ---------: | -----: | -----: | -----: | -----: |
 | 1          | 0.1 μs | 0.4 μs | 0.1 μs | 0.3 μs |
 | 10         | 0.2 μs | 4.8 μs | 3.3 μs | 1.6 μs |
