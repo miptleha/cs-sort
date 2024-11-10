@@ -25,18 +25,16 @@ These algorithms are *not recommended* for use (significantly slower than built-
 
 ### O(nlogn) sorts
 
-| n          | [Build-in][1] | [Merge][5] | [Quick][6] |
-| ---------: | -----: | -----: | -----: |
-| 1          | 0 μs   | 0.2 μs | 0.1 μs |
-| 10         | 0.3 μs | 6.8 μs | 3.8 μs |
-| 100        | 2.2 μs | 48 μs  | 41 μs  |
-| 1 000      | 34 μs  | 650 μs | 480 μs |
-| 10 000     | 440 μs | 6.3 ms | 4.9 ms |
-| 100 000    | 5.4 ms | 39 ms  | 52 ms  |
-| 1 000 000  | 67 ms  | 430 ms | 600 ms |
-| 10 000 000 | 780 ms | 4.9 s  | 6.9 s  |
-
-*New algorithms coming soon*
+| n          | [Build-in][1] | [Merge][5] | [Quick][6] | [Heap](7) |
+| ---------: | -----: | -----: | -----: | -----: |
+| 1          | 0.1 μs | 0.4 μs | 0.1 μs | 0.3 μs |
+| 10         | 0.2 μs | 4.8 μs | 3.3 μs | 1.6 μs |
+| 100        | 2.4 μs | 48 μs  | 41 μs  | 23 μs  |
+| 1 000      | 34 μs  | 610 μs | 480 μs | 330 μs |
+| 10 000     | 430 μs | 6 ms   | 5.6 ms | 4.3 ms |
+| 100 000    | 5.4 ms | 39 ms  | 53 ms  | 54 ms  |
+| 1 000 000  | 66 ms  | 430 ms | 600 ms | 690 ms |
+| 5 000 000  | 360 ms | 2.3 s  | 3.4 s  | 4.6 s  |
 
 [1]: https://learn.microsoft.com/en-us/dotnet/api/system.array.sort?view=net-8.0#system-array-sort
 [2]: n2/BubbleSort.cs
@@ -44,6 +42,7 @@ These algorithms are *not recommended* for use (significantly slower than built-
 [4]: n2/SelectionSort.cs
 [5]: nlogn/MergeSort.cs
 [6]: nlogn/QuickSort.cs
+[7]: nlogn/HeapSort.cs
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fmiptleha%2Fcs-sort&count_bg=%230C7DBD&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
