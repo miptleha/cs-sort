@@ -73,9 +73,12 @@ namespace cs_sort
                 for (int i = 0; i < MAX_POWER; i++)
                 {
                     var total = (int)Math.Pow(10, i);
+                    if (i == MAX_POWER - 1)
+                        total = total / 2;
                     var tsBuildIn = new List<TimeSpan>();
                     var tsMerge = new List<TimeSpan>();
                     var tsQuick = new List<TimeSpan>();
+                    var tsHeap = new List<TimeSpan>();
                     for (int k = 0; k < (i < MAX_POWER - 1 ? MAX_TRY : 1); k++)
                     {
                         var src = new List<int>();
@@ -85,8 +88,9 @@ namespace cs_sort
                         tsBuildIn.Add(SortBuildIn(src, a == 0).Elapsed);
                         tsMerge.Add(SortMerge(src, a == 0).Elapsed);
                         tsQuick.Add(SortQuick(src, a == 0).Elapsed);
+                        tsHeap.Add(SortHeap(src, a == 0).Elapsed);
                     }
-                    Console.WriteLine($"{total.ToString("N0")}, BuildIn: {Time(Mean(tsBuildIn))}, Merge: {Time(Mean(tsMerge))}, Quick: {Time(Mean(tsQuick))}");
+                    Console.WriteLine($"{total.ToString("N0")}, BuildIn: {Time(Mean(tsBuildIn))}, Merge: {Time(Mean(tsMerge))}, Quick: {Time(Mean(tsQuick))}, Heap: {Time(Mean(tsHeap))}");
                 }
             }
         }
@@ -121,6 +125,17 @@ namespace cs_sort
 
         static IList<int> _etalon;
 
+        private static Stopwatch SortHeap(IList<int> src, bool isArray)
+        {
+            var list = Copy(src, isArray);
+            Stopwatch sw = Stopwatch.StartNew();
+            list.SortHeap();
+            sw.Stop();
+            if (!Comparer.Compare(_etalon, list))
+                throw new Exception("Invalid implementation of heap sort");
+            return sw;
+        }
+
         private static Stopwatch SortQuick(IList<int> src, bool isArray)
         {
             var list = Copy(src, isArray);
@@ -128,7 +143,7 @@ namespace cs_sort
             list.SortQuick();
             sw.Stop();
             if (!Comparer.Compare(_etalon, list))
-                throw new Exception("Invalid implementaion of quick sort");
+                throw new Exception("Invalid implementation of quick sort");
             return sw;
         }
 
@@ -139,7 +154,7 @@ namespace cs_sort
             var list1 = list.SortMerge();
             sw.Stop();
             if (!Comparer.Compare(_etalon, list1))
-                throw new Exception("Invalid implementaion of merge sort");
+                throw new Exception("Invalid implementation of merge sort");
             return sw;
         }
 
@@ -150,7 +165,7 @@ namespace cs_sort
             list.SortSelection();
             sw.Stop();
             if (!Comparer.Compare(_etalon, list))
-                throw new Exception("Invalid implementaion of selection sort");
+                throw new Exception("Invalid implementation of selection sort");
             return sw;
         }
 
@@ -161,7 +176,7 @@ namespace cs_sort
             list.SortInsertion();
             sw.Stop();
             if (!Comparer.Compare(_etalon, list))
-                throw new Exception("Invalid implementaion of insertion sort");
+                throw new Exception("Invalid implementation of insertion sort");
             return sw;
         }
 
@@ -172,7 +187,7 @@ namespace cs_sort
             list.SortBubble();
             sw.Stop();
             if (!Comparer.Compare(_etalon, list))
-                throw new Exception("Invalid implementaion of bubble sort");
+                throw new Exception("Invalid implementation of bubble sort");
             return sw;
         }
 

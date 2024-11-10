@@ -50,6 +50,7 @@
     <Compile Include="n2\BubbleSort.cs" />
     <Compile Include="n2\InsertionSort.cs" />
     <Compile Include="n2\SelectionSort.cs" />
+    <Compile Include="nlogn\HeapSort.cs" />
     <Compile Include="nlogn\MergeSort.cs" />
     <Compile Include="nlogn\QuickSort.cs" />
     <Compile Include="Program.cs" />
